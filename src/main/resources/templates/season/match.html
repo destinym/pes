@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div>
+    <a href="/">返回</a>
+</div>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>主队</th>
+            <th>主队比分</th>
+            <th>客队</th>
+            <th>客队比分</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="match : ${matches}">
+            <td th:text="${match.homeUser.username}"></td>
+            <td th:text="${match.homeScore}"></td>
+            <td th:text="${match.awayUser.username}"></td>
+            <td th:text="${match.awayScore}"></td>
+            <div th:if="${match.finish}">
+                <td th:text="完成"></td>
+            </div>
+            <div th:if="not ${match.finish}">
+                <td th:text="未完成"></td>
+            </div>
+            <td>
+                <a th:href="@{/match/modify?matchId={matchId}(matchId=${match.id})}">修改</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div>
+    <a href="season/add">创建活动</a>
+</div>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>活动名称</th>
+            <th>比赛时间</th>
+            <th>状态</th>
+            <th>获胜者</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="season : ${seasons}">
+            <td th:text="${season.name}"></td>
+            <td th:text="${season.createTime}"></td>
+            <div th:if="${season.leftMatch} &gt; 0">
+                <td th:text="未完成"></td>
+            </div>
+            <div th:if="${season.leftMatch} &lt; 1">
+                <td th:text="完成"></td>
+            </div>
+            <div th:if="${season.leftMatch} &gt; 0">
+                <td th:text="未完成"></td>
+            </div>
+            <div th:if="${season.leftMatch} &lt; 1">
+                <td th:text="${season.winnerUser.username}"></td>
+            </div>
+            <td>
+                <a th:href="@{/season/match?seasonId={seasonId}(seasonId=${season.id})}">修改</a>
+                <div th:if="${season.leftMatch} &lt; 1">
+                    <a th:href="@{/season/result?seasonId={seasonId}(seasonId=${season.id})}">查看</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
